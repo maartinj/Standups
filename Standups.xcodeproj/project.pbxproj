@@ -25,15 +25,30 @@
 		E4009CB02DE469DA00E31729 /* CounterTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CounterTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		E4009D2A2DE4A09C00E31729 /* Exceptions for "Standups" folder in "CounterTests" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Models.swift,
+				StandupForm.swift,
+				StandupsList.swift,
+			);
+			target = E4009CAF2DE469DA00E31729 /* CounterTests */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		E4009C972DE468DE00E31729 /* Standups */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				E4009D2A2DE4A09C00E31729 /* Exceptions for "Standups" folder in "CounterTests" target */,
+			);
 			path = Standups;
 			sourceTree = "<group>";
 		};
-		E4009CB12DE469DA00E31729 /* CounterTests */ = {
+		E4009CB12DE469DA00E31729 /* StandupsTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = CounterTests;
+			path = StandupsTests;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -61,7 +76,7 @@
 			isa = PBXGroup;
 			children = (
 				E4009C972DE468DE00E31729 /* Standups */,
-				E4009CB12DE469DA00E31729 /* CounterTests */,
+				E4009CB12DE469DA00E31729 /* StandupsTests */,
 				E4009C962DE468DE00E31729 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -115,7 +130,7 @@
 				E4009CB52DE469DA00E31729 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
-				E4009CB12DE469DA00E31729 /* CounterTests */,
+				E4009CB12DE469DA00E31729 /* StandupsTests */,
 			);
 			name = CounterTests;
 			packageProductDependencies = (
