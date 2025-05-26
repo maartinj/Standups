@@ -6,8 +6,23 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		E4009CAB2DE469C900E31729 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = E4009CAA2DE469C900E31729 /* ComposableArchitecture */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		E4009CB42DE469DA00E31729 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E4009C8D2DE468DE00E31729 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E4009C942DE468DE00E31729;
+			remoteInfo = Standups;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		E4009C952DE468DE00E31729 /* Standups.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Standups.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E4009CB02DE469DA00E31729 /* CounterTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CounterTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -16,10 +31,23 @@
 			path = Standups;
 			sourceTree = "<group>";
 		};
+		E4009CB12DE469DA00E31729 /* CounterTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = CounterTests;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		E4009C922DE468DE00E31729 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E4009CAB2DE469C900E31729 /* ComposableArchitecture in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E4009CAD2DE469DA00E31729 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -33,6 +61,7 @@
 			isa = PBXGroup;
 			children = (
 				E4009C972DE468DE00E31729 /* Standups */,
+				E4009CB12DE469DA00E31729 /* CounterTests */,
 				E4009C962DE468DE00E31729 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -41,6 +70,7 @@
 			isa = PBXGroup;
 			children = (
 				E4009C952DE468DE00E31729 /* Standups.app */,
+				E4009CB02DE469DA00E31729 /* CounterTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -65,10 +95,34 @@
 			);
 			name = Standups;
 			packageProductDependencies = (
+				E4009CAA2DE469C900E31729 /* ComposableArchitecture */,
 			);
 			productName = Standups;
 			productReference = E4009C952DE468DE00E31729 /* Standups.app */;
 			productType = "com.apple.product-type.application";
+		};
+		E4009CAF2DE469DA00E31729 /* CounterTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E4009CB62DE469DA00E31729 /* Build configuration list for PBXNativeTarget "CounterTests" */;
+			buildPhases = (
+				E4009CAC2DE469DA00E31729 /* Sources */,
+				E4009CAD2DE469DA00E31729 /* Frameworks */,
+				E4009CAE2DE469DA00E31729 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E4009CB52DE469DA00E31729 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				E4009CB12DE469DA00E31729 /* CounterTests */,
+			);
+			name = CounterTests;
+			packageProductDependencies = (
+			);
+			productName = CounterTests;
+			productReference = E4009CB02DE469DA00E31729 /* CounterTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -83,6 +137,10 @@
 					E4009C942DE468DE00E31729 = {
 						CreatedOnToolsVersion = 16.3;
 					};
+					E4009CAF2DE469DA00E31729 = {
+						CreatedOnToolsVersion = 16.3;
+						TestTargetID = E4009C942DE468DE00E31729;
+					};
 				};
 			};
 			buildConfigurationList = E4009C902DE468DE00E31729 /* Build configuration list for PBXProject "Standups" */;
@@ -94,18 +152,29 @@
 			);
 			mainGroup = E4009C8C2DE468DE00E31729;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				E4009CA92DE469C900E31729 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = E4009C962DE468DE00E31729 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
 				E4009C942DE468DE00E31729 /* Standups */,
+				E4009CAF2DE469DA00E31729 /* CounterTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		E4009C932DE468DE00E31729 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E4009CAE2DE469DA00E31729 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -122,7 +191,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		E4009CAC2DE469DA00E31729 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		E4009CB52DE469DA00E31729 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E4009C942DE468DE00E31729 /* Standups */;
+			targetProxy = E4009CB42DE469DA00E31729 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		E4009C9E2DE468E000E31729 /* Debug */ = {
@@ -186,6 +270,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_STRICT_CONCURRENCY = complete;
 			};
 			name = Debug;
 		};
@@ -242,6 +327,7 @@
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_STRICT_CONCURRENCY = complete;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -269,6 +355,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.mj.Standups;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_STRICT_CONCURRENCY = minimal;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -297,8 +384,45 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.mj.Standups;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_STRICT_CONCURRENCY = minimal;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		E4009CB72DE469DA00E31729 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 4P4GQMB6S7;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mj.CounterTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Standups.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Standups";
+			};
+			name = Debug;
+		};
+		E4009CB82DE469DA00E31729 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 4P4GQMB6S7;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mj.CounterTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Standups.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Standups";
 			};
 			name = Release;
 		};
@@ -323,7 +447,35 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		E4009CB62DE469DA00E31729 /* Build configuration list for PBXNativeTarget "CounterTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E4009CB72DE469DA00E31729 /* Debug */,
+				E4009CB82DE469DA00E31729 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		E4009CA92DE469C900E31729 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pointfreeco/swift-composable-architecture.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.20.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		E4009CAA2DE469C900E31729 /* ComposableArchitecture */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E4009CA92DE469C900E31729 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */;
+			productName = ComposableArchitecture;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = E4009C8D2DE468DE00E31729 /* Project object */;
 }
