@@ -30,6 +30,7 @@
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Models.swift,
+				StandupDetail.swift,
 				StandupForm.swift,
 				StandupsList.swift,
 			);
