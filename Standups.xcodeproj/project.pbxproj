@@ -29,7 +29,7 @@
 		E4009D2A2DE4A09C00E31729 /* Exceptions for "Standups" folder in "CounterTests" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				AppView.swift,
+				App.swift,
 				Models.swift,
 				StandupDetail.swift,
 				StandupForm.swift,
