@@ -19,10 +19,10 @@ struct StandupsApp: App {
                     path: StackState([
                         .detail(
                             StandupDetailFeature.State(
-                                editStandup: StandupFormFeature.State(
-                                    focus: .attendee(editedStandup.attendees[3].id),
-                                    standup: editedStandup
-                                ),
+                                destination: .editStandup(
+                                    StandupFormFeature.State(
+                                        focus: .attendee(editedStandup.attendees[3].id),
+                                        standup: editedStandup)),
                                 standup: .mock)
 
                         )
@@ -32,6 +32,11 @@ struct StandupsApp: App {
                 ) {
                     AppFeature()
                         ._printChanges()
+                }
+            )
+            StandupDetailView(
+                store: Store(initialState: StandupDetailFeature.State(standup: .mock)) {
+                    StandupDetailFeature()
                 }
             )
         }
