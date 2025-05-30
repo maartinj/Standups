@@ -16,17 +16,18 @@ struct StandupsApp: App {
         WindowGroup {
             AppView(
                 store: Store(initialState: AppFeature.State(
-                    path: StackState([
-                        .detail(
-                            StandupDetailFeature.State(
-                                destination: .editStandup(
-                                    StandupFormFeature.State(
-                                        focus: .attendee(editedStandup.attendees[3].id),
-                                        standup: editedStandup)),
-                                standup: .mock)
-
-                        )
-                    ]),
+//                    path: StackState([
+//                        .detail(
+//                            StandupDetailFeature.State(
+//                                destination: .editStandup(
+//                                    StandupFormFeature.State(
+//                                        focus: .attendee(editedStandup.attendees[3].id),
+//                                        standup: editedStandup)),
+//                                standup: .mock)
+//
+//                        )
+//                    ]),
+                    path: StackState(),
                     standupsList: StandupsListFeature.State(standups: [.mock])
                 )
                 ) {
@@ -34,11 +35,11 @@ struct StandupsApp: App {
                         ._printChanges()
                 }
             )
-            StandupDetailView(
-                store: Store(initialState: StandupDetailFeature.State(standup: .mock)) {
-                    StandupDetailFeature()
-                }
-            )
+//            StandupDetailView(
+//                store: Store(initialState: StandupDetailFeature.State(standup: .mock)) {
+//                    StandupDetailFeature()
+//                }
+//            )
         }
     }
 }

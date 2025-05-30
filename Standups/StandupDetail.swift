@@ -23,9 +23,11 @@ struct StandupDetailFeature: Reducer {
         case editButtonTapped
         case saveStandupButtonTapped
         enum Delegate: Equatable {
+            case deleteStandup(id: Standup.ID)
             case standupUpdated(Standup)
         }
     }
+    @Dependency(\.dismiss) var dismiss
 
     struct Destination: Reducer {
         enum State: Equatable {
@@ -82,7 +84,10 @@ struct StandupDetailFeature: Reducer {
 
             case .destination(.presented(.alert(.confirmDeletion))):
                 // TODO: Delete this standup
-                return .none
+                return .run { [id = state.standup.id] send in
+                    await send(.delegate(.deleteStandup(id: id)))
+                    await self.dismiss()
+                }
 
             case .destination:
                 return .none
