@@ -27,7 +27,10 @@ struct StandupsApp: App {
 //
 //                        )
 //                    ]),
-                    path: StackState(),
+                    path: StackState([
+//                        .detail(StandupDetailFeature.State(standup: .mock)),
+//                        .recordMeeting(RecordMeetingFeature.State())
+                    ]),
                     standupsList: StandupsListFeature.State(standups: [.mock])
                 )
                 ) {

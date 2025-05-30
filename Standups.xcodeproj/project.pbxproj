@@ -31,11 +31,19 @@
 			membershipExceptions = (
 				App.swift,
 				Models.swift,
+				RecordMeeting.swift,
 				StandupDetail.swift,
 				StandupForm.swift,
 				StandupsList.swift,
 			);
 			target = E4009CAF2DE469DA00E31729 /* CounterTests */;
+		};
+		E439817A2DE9A3F500003E8D /* Exceptions for "Standups" folder in "Standups" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = E4009C942DE468DE00E31729 /* Standups */;
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
@@ -43,6 +51,7 @@
 		E4009C972DE468DE00E31729 /* Standups */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
+				E439817A2DE9A3F500003E8D /* Exceptions for "Standups" folder in "Standups" target */,
 				E4009D2A2DE4A09C00E31729 /* Exceptions for "Standups" folder in "CounterTests" target */,
 			);
 			path = Standups;
@@ -359,6 +368,8 @@
 				DEVELOPMENT_TEAM = 4P4GQMB6S7;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Standups/Info.plist;
+				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "To record meetings";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -388,6 +399,8 @@
 				DEVELOPMENT_TEAM = 4P4GQMB6S7;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Standups/Info.plist;
+				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "To record meetings";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
