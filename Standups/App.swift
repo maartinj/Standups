@@ -18,6 +18,9 @@ struct AppFeature: Reducer {
         case standupsList(StandupsListFeature.Action)
     }
 
+    @Dependency(\.date.now) var now
+    @Dependency(\.uuid) var uuid
+
     struct Path: Reducer {
         enum State: Equatable {
             case detail(StandupDetailFeature.State)
@@ -55,6 +58,28 @@ struct AppFeature: Reducer {
                     state.standupsList.standups[id: standup.id] = standup
                     return .none
                 }
+
+            case let .path(.element(id: id, action: .recordMeeting(.delegate(action)))):
+                switch action {
+                case .saveMeeting:
+                    guard let detailID = state.path.ids.dropLast().last else {
+                        XCTFail("Record meeting is the last element in the stack. A detail feature should proceed it.")
+                        return .none
+                    }
+                    state.path[id: detailID, case: /Path.State.detail]?.standup.meetings.insert(
+                        Meeting(
+                            id: self.uuid(),
+                            date: self.now,
+                            transcript: "N/A"
+                        ),
+                        at: 0
+                    )
+                    guard let standup = state.path[id: detailID, case: /Path.State.detail]?.standup
+                    else { return .none }
+                    state.standupsList.standups[id: standup.id] = standup
+                    return .none
+                }
+
             case .path:
                 return .none
 
@@ -104,6 +129,25 @@ struct AppView: View {
     AppView(
         store: Store(initialState: AppFeature.State(
             standupsList: StandupsListFeature.State(standups: [.mock])
+        )
+        ) {
+            AppFeature()
+                ._printChanges()
+        }
+    )
+}
+
+#Preview("Quick finish meeting") {
+    var standup = Standup.mock
+    standup.duration = .seconds(6)
+
+    return AppView(
+        store: Store(initialState: AppFeature.State(
+            path: StackState([
+                .detail(StandupDetailFeature.State(standup: standup)),
+                .recordMeeting(RecordMeetingFeature.State(standup: standup))
+            ]),
+            standupsList: StandupsListFeature.State(standups: [standup])
         )
         ) {
             AppFeature()

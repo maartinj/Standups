@@ -32,6 +32,7 @@
 				App.swift,
 				Models.swift,
 				RecordMeeting.swift,
+				SpeechClient.swift,
 				StandupDetail.swift,
 				StandupForm.swift,
 				StandupsList.swift,

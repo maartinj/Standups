@@ -14,6 +14,8 @@ struct StandupsApp: App {
         var editedStandup = Standup.mock
         let _ = editedStandup.title += " Morning Sync"
         WindowGroup {
+            var standup = Standup.mock
+            let _ = standup.duration = .seconds(6)
             AppView(
                 store: Store(initialState: AppFeature.State(
 //                    path: StackState([
@@ -29,9 +31,9 @@ struct StandupsApp: App {
 //                    ]),
                     path: StackState([
 //                        .detail(StandupDetailFeature.State(standup: .mock)),
-//                        .recordMeeting(RecordMeetingFeature.State())
+//                        .recordMeeting(RecordMeetingFeature.State(standup: standup))
                     ]),
-                    standupsList: StandupsListFeature.State(standups: [.mock])
+                    standupsList: StandupsListFeature.State(standups: [standup])
                 )
                 ) {
                     AppFeature()
