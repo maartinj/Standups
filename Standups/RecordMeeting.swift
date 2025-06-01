@@ -11,6 +11,7 @@ import SwiftUI
 
 struct RecordMeetingFeature: Reducer {
     struct State: Equatable {
+        @PresentationState var alert: AlertState<Action.Alert>?
         var secondsElapsed = 0
         var speakerIndex = 0
         let standup: Standup
@@ -20,11 +21,16 @@ struct RecordMeetingFeature: Reducer {
         }
     }
     enum Action: Equatable {
+        case alert(PresentationAction<Alert>)
         case delegate(Delegate)
         case endMeetingButtonTapped
         case nextButtonTapped
         case onTask
         case timerTicked
+        enum Alert {
+            case confirmDiscard
+            case confirmSave
+        }
         enum Delegate {
             case saveMeeting
         }
@@ -35,17 +41,34 @@ struct RecordMeetingFeature: Reducer {
     @Dependency(\.speechClient) var speechClient
 
     var body: some ReducerOf<Self> {
-        Reduce { state, action in
+        Reduce {
+            state,
+            action in
             switch action {
+            case .alert(.presented(.confirmDiscard)):
+                return .run { send in
+                    // await send(.delegate(.saveMeeting))
+                    await self.dismiss() }
+
+            case .alert(.presented(.confirmSave)):
+                return .run { send in
+                    await send(.delegate(.saveMeeting))
+                    await self.dismiss()
+                }
+                
+            case .alert(.dismiss):
+                return .none
+                
             case .delegate:
                 return .none
-
+                
             case .endMeetingButtonTapped:
+                state.alert = .endMeeting(isDiscardable: true)
                 return .none
-
+                
             case .nextButtonTapped:
                 guard state.speakerIndex < state.standup.attendees.count - 1 else {
-                    // TODO: Alert to end meeting
+                    state.alert = .endMeeting(isDiscardable: false)
                     return .none
                 }
                 state.speakerIndex += 1
@@ -61,6 +84,9 @@ struct RecordMeetingFeature: Reducer {
                     }
                 }
             case .timerTicked:
+                guard state.alert == nil
+                else { return .none }
+                
                 state.secondsElapsed += 1
                 let secondsPerAttendee = Int(state.standup.durationPerAttendee.components.seconds)
 
@@ -75,6 +101,37 @@ struct RecordMeetingFeature: Reducer {
                 }
                 return .none
             }
+        }
+        .ifLet(\.$alert, action: /Action.alert)
+    }
+}
+
+extension AlertState
+where Action == RecordMeetingFeature.Action.Alert {
+    static func endMeeting(isDiscardable: Bool) -> Self {
+        Self {
+            TextState("End meeting?")
+        } actions: {
+            ButtonState(action: .confirmSave) {
+                TextState("Save and end")
+            }
+            if isDiscardable {
+                ButtonState(
+                    role: .destructive, action: .confirmDiscard
+                ) {
+                    TextState("Discard")
+                }
+            }
+            ButtonState(role: .cancel) {
+                TextState("Resume")
+            }
+        } message: {
+            TextState(
+        """
+        You are ending the meeting early. \
+        What would you like to do?
+        """
+            )
         }
     }
 }
@@ -121,6 +178,7 @@ struct RecordMeetingView: View {
             }
             .navigationBarBackButtonHidden(true)
             .task { await viewStore.send(.onTask).finish() }
+            .alert(store: self.store.scope(state: \.$alert, action: { .alert($0) }))
         }
     }
 }
