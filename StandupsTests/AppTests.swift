@@ -182,6 +182,7 @@ final class AppTests: XCTestCase {
         }
         store.exhaustivity = .off
         await store.send(.path(.element(id: 1, action: .recordMeeting(.onTask))))
+        // Sprawdzić test dlaczego mi nie działa, coś jest nie tak, w przykładzie działa
         await store.send(.path(.element(id: 1, action: .recordMeeting(.endMeetingButtonTapped))))
         await store.send(.path(.element(id: 1, action: .recordMeeting(.alert(.presented(.confirmDiscard))))))
         await store.skipReceivedActions()
