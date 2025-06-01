@@ -24,11 +24,13 @@ struct AppFeature: Reducer {
     struct Path: Reducer {
         enum State: Equatable {
             case detail(StandupDetailFeature.State)
+            case meeting(Meeting, standup: Standup)
             case recordMeeting(RecordMeetingFeature.State)
         }
 
         enum Action: Equatable {
             case detail(StandupDetailFeature.Action)
+            case meeting(Never)
             case recordMeeting(RecordMeetingFeature.Action)
         }
 
@@ -41,6 +43,9 @@ struct AppFeature: Reducer {
             }
         }
     }
+
+    @Dependency(\.continuousClock) var clock
+
     var body: some ReducerOf<Self> {
         Scope(state: \.standupsList, action: /Action.standupsList) {
             StandupsListFeature()
@@ -61,7 +66,7 @@ struct AppFeature: Reducer {
 
             case let .path(.element(id: id, action: .recordMeeting(.delegate(action)))):
                 switch action {
-                case .saveMeeting:
+                case let .saveMeeting(transcript: transcript):
                     guard let detailID = state.path.ids.dropLast().last else {
                         XCTFail("Record meeting is the last element in the stack. A detail feature should proceed it.")
                         return .none
@@ -70,7 +75,7 @@ struct AppFeature: Reducer {
                         Meeting(
                             id: self.uuid(),
                             date: self.now,
-                            transcript: "N/A"
+                            transcript: transcript
                         ),
                         at: 0
                     )
@@ -89,6 +94,16 @@ struct AppFeature: Reducer {
         }
         .forEach(\.path, action: /Action.path) {
             Path()
+        }
+
+        Reduce { state, _ in
+                .run { [standups = state.standupsList.standups] _ in
+                    enum CancelID { case saveDebounce }
+                    try await withTaskCancellation(id: CancelID.saveDebounce, cancelInFlight: true) {
+                        try await self.clock.sleep(for: .seconds(1))
+                        try JSONEncoder().encode(standups).write(to: .standups)
+                    }
+                }
         }
     }
 }
@@ -114,6 +129,10 @@ struct AppView: View {
                      action: AppFeature.Path.Action.detail,
                      then: StandupDetailView.init(store:)
                 )
+
+            case let .meeting(meeting, standup: standup):
+                MeetingView(meeting: meeting, standup: standup)
+                
             case .recordMeeting:
                 CaseLet(
                     /AppFeature.Path.State.recordMeeting,
@@ -125,10 +144,16 @@ struct AppView: View {
     }
 }
 
+extension URL {
+    static let standups = Self.documentsDirectory.appending(component: "standups.json")
+}
+
 #Preview {
     AppView(
         store: Store(initialState: AppFeature.State(
-            standupsList: StandupsListFeature.State(standups: [.mock])
+            standupsList: StandupsListFeature.State(
+//                standups: [.mock]
+            )
         )
         ) {
             AppFeature()
@@ -147,7 +172,9 @@ struct AppView: View {
                 .detail(StandupDetailFeature.State(standup: standup)),
                 .recordMeeting(RecordMeetingFeature.State(standup: standup))
             ]),
-            standupsList: StandupsListFeature.State(standups: [standup])
+            standupsList: StandupsListFeature.State(
+//                standups: [standup]
+            )
         )
         ) {
             AppFeature()

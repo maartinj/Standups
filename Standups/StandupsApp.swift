@@ -33,7 +33,9 @@ struct StandupsApp: App {
 //                        .detail(StandupDetailFeature.State(standup: .mock)),
 //                        .recordMeeting(RecordMeetingFeature.State(standup: standup))
                     ]),
-                    standupsList: StandupsListFeature.State(standups: [standup])
+                    standupsList: StandupsListFeature.State(
+//                        standups: [standup]
+                    )
                 )
                 ) {
                     AppFeature()

@@ -30,6 +30,7 @@
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				App.swift,
+				Meeting.swift,
 				Models.swift,
 				RecordMeeting.swift,
 				SpeechClient.swift,
