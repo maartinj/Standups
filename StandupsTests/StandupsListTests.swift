@@ -15,6 +15,7 @@ final class StandupsListTests: XCTestCase {
         let store = TestStore(initialState: StandupsListFeature.State()) {
             StandupsListFeature()
         } withDependencies: {
+            $0.dataManager = .mock()
             $0.uuid = .incrementing
         }
 
@@ -48,6 +49,7 @@ final class StandupsListTests: XCTestCase {
         let store = TestStore(initialState: StandupsListFeature.State()) {
             StandupsListFeature()
         } withDependencies: {
+            $0.dataManager = .mock()
             $0.uuid = .incrementing
         }
         store.exhaustivity = .off

@@ -15,12 +15,13 @@ final class AppTests: XCTestCase {
         let standup = Standup.mock
         let store = TestStore(
             initialState: AppFeature.State(
-                standupsList: StandupsListFeature.State(
-//                    standups: [standup]
+                standupsList: StandupsListFeature.State()
             )
-        )
         ) {
             AppFeature()
+        } withDependencies: {
+            $0.continuousClock = ImmediateClock()
+            $0.dataManager = .mock(initialData: try? JSONEncoder().encode([standup]))
         }
         await store.send(.path(.push(id: 0, state: .detail(StandupDetailFeature.State(standup: standup))))) {
             $0.path[id: 0] = .detail(StandupDetailFeature.State(standup: standup))
@@ -51,12 +52,13 @@ final class AppTests: XCTestCase {
         let standup = Standup.mock
         let store = TestStore(
             initialState: AppFeature.State(
-                standupsList: StandupsListFeature.State(
-//                    standups: [standup]
+                standupsList: StandupsListFeature.State()
             )
-        )
         ) {
             AppFeature()
+        } withDependencies: {
+            $0.continuousClock = ImmediateClock()
+            $0.dataManager = .mock(initialData: try? JSONEncoder().encode([standup]))
         }
         store.exhaustivity = .off
 
@@ -83,12 +85,13 @@ final class AppTests: XCTestCase {
                 path: StackState([
                     .detail(StandupDetailFeature.State(standup: standup))
                 ]),
-                standupsList: StandupsListFeature.State(
-//                    standups: [standup]
-                )
+                standupsList: StandupsListFeature.State()
             )
         ) {
             AppFeature()
+        } withDependencies: {
+            $0.continuousClock = ImmediateClock()
+            $0.dataManager = .mock(initialData: try? JSONEncoder().encode([standup]))
         }
         store.exhaustivity = .off
 
@@ -121,15 +124,14 @@ final class AppTests: XCTestCase {
                         RecordMeetingFeature.State(standup: standup)
                     ),
                 ]),
-                standupsList: StandupsListFeature.State(
-//                    standups: [standup]
-                )
+                standupsList: StandupsListFeature.State()
             )
         ) {
             AppFeature()
         } withDependencies: {
             $0.continuousClock = ImmediateClock()
             $0.date.now = Date(timeIntervalSince1970: 1234567890)
+            $0.dataManager = .mock(initialData: try? JSONEncoder().encode([standup]))
             $0.speechClient.requestAuthorization = { .denied }
             $0.uuid = .incrementing
         }
@@ -170,14 +172,13 @@ final class AppTests: XCTestCase {
                         RecordMeetingFeature.State(standup: standup)
                     ),
                 ]),
-                standupsList: StandupsListFeature.State(
-//                    standups: [standup]
-                )
+                standupsList: StandupsListFeature.State()
             )
         ) {
             AppFeature()
         } withDependencies: {
             $0.continuousClock = ImmediateClock()
+            $0.dataManager = .mock(initialData: try? JSONEncoder().encode([standup]))
             $0.date.now = Date(timeIntervalSince1970: 1234567890)
             $0.speechClient.requestAuthorization = { .authorized }
             $0.speechClient.start = {
@@ -229,14 +230,13 @@ final class AppTests: XCTestCase {
                         RecordMeetingFeature.State(standup: standup)
                     ),
                 ]),
-                standupsList: StandupsListFeature.State(
-//                    standups: [standup]
-                )
+                standupsList: StandupsListFeature.State()
             )
         ) {
             AppFeature()
         } withDependencies: {
             $0.continuousClock = ImmediateClock()
+            $0.dataManager = .mock(initialData: try? JSONEncoder().encode([standup]))
             $0.speechClient.requestAuthorization = { .denied }
         }
         store.exhaustivity = .off
@@ -260,8 +260,9 @@ final class AppTests: XCTestCase {
         ) {
             AppFeature()
         } withDependencies: {
-            $0.uuid = .incrementing
             $0.continuousClock = ImmediateClock()
+            $0.dataManager = .mock()
+            $0.uuid = .incrementing
         }
         store.exhaustivity = .off
 

@@ -45,6 +45,7 @@ struct AppFeature: Reducer {
     }
 
     @Dependency(\.continuousClock) var clock
+    @Dependency(\.dataManager.save) var saveData
 
     var body: some ReducerOf<Self> {
         Scope(state: \.standupsList, action: /Action.standupsList) {
@@ -101,7 +102,9 @@ struct AppFeature: Reducer {
                     enum CancelID { case saveDebounce }
                     try await withTaskCancellation(id: CancelID.saveDebounce, cancelInFlight: true) {
                         try await self.clock.sleep(for: .seconds(1))
-                        try JSONEncoder().encode(standups).write(to: .standups)
+                        try self.saveData(
+                            JSONEncoder().encode(standups), .standups
+                        )
                     }
                 }
         }
@@ -151,13 +154,13 @@ extension URL {
 #Preview {
     AppView(
         store: Store(initialState: AppFeature.State(
-            standupsList: StandupsListFeature.State(
-//                standups: [.mock]
-            )
+            standupsList: StandupsListFeature.State()
         )
         ) {
             AppFeature()
                 ._printChanges()
+        } withDependencies: {
+            $0.dataManager = .mock(initialData: try? JSONEncoder().encode([Standup.mock]))
         }
     )
 }
